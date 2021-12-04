@@ -31,12 +31,12 @@ garpike and stingray are also present.'''
 users_pass = {'Bob': '123', 'Ann': 'pass123', 'Mike': 'password123', 'Liz': 'pass123'}
 number_of_texts = len(TEXTS)
 line = "-" * 35
-text_1 = TEXTS[0]
-text_2 = TEXTS[1]
-text_3 = TEXTS[2]
+text_1 = TEXTS[0].strip(" , . : ! ? - _ ")
+text_2 = TEXTS[1].strip(" , . : ! ? - _ ")
+text_3 = TEXTS[2].strip(" , . : ! ? - _ ")
 title_text = "LEN|  OCCURENCES  |NR."
 
-for number_of_logins in range(1, 4):
+for number_of_logins in range(number_of_texts):
     user = input("Username: ")
     password = input("Password: ")
     print(line)
@@ -46,14 +46,23 @@ for number_of_logins in range(1, 4):
     else:
         print("Wrong username or password. Please try it again.")
 else:
-    print("You tried it many times. Please try it again later.")
+    print("You've tried it many times. Please try again later.")
     quit()
 print(f"We have {number_of_texts} texts to be analyzed.")
 print(line)
-choice = int(input(f"Enter a number btw. {number_of_texts - number_of_texts + 1} and {number_of_texts} to select the number of text: "))
-print(line)
 
-if choice == 1:
+#choice should be a number btw. 1 and 3
+
+for choice in range(number_of_texts):
+    choice = input(f"Enter a number btw. {number_of_texts - number_of_texts + 1} and {number_of_texts} to select the number of text: ")
+    if choice.isnumeric() and choice <= "3":
+        break
+    else:
+        print("This is not a number btw. 1 and 3")
+else:
+    print("You've tried it many times. Please try again later.")
+
+if choice == "1":
     # number of words
     print(f"There are {len(text_1.split())} words in the selected text.")
     # number of titlecase
@@ -103,7 +112,8 @@ if choice == 1:
 
 
 
-if choice == 2:
+
+if choice == "2":
     # number of words
     print(f"There are {len(text_2.split())} words in the selected text.")
     # number of titlecase
@@ -152,7 +162,7 @@ if choice == 2:
         print(f"{numbers_22[0]:>3}|{lengt_graph:<18}|{numbers_22[1]}")
 
 
-if choice == 3:
+if choice == "3":
     # number of words
     print(f"There are {len(text_3.split())} words in the selected text.")
     num_of_title_3 = 0
@@ -200,5 +210,3 @@ if choice == 3:
         print(f"{numbers_33[0]:>3}|{lengt_graph:<18}|{numbers_33[1]}")
 
 
-else:
-    quit()
